@@ -4,6 +4,15 @@
      
 	//võtab ja kopeerib faili sisu
 	require("../../config.php");
+	require("functions.php");
+	
+	//kas kasutaja on sisse logitud
+	if (isset ($_SESSIPN["userid"])) {
+		
+		header("Location: data.php");
+		
+	}
+	
 	
 	//var_dump($_GET);
 	//echo "<br>";
@@ -75,28 +84,25 @@ $gender = "male";
 	    
 		//echo $serverPassword
 		
-		$database = "if16_henriv";
+		signup($signupEmail, $password);
 		
-		//ühendus
-		$mysqli = new mysqli($serverHost,$serverUsername,$serverPassword,$database);
 		
-		//käsk
-		$stmt = $mysqli->prepare("INSERT INTO user_sample (email, password) VALUES (?, ?)");
 		
-		//asendan küsimärgi väärtustega
-		//iga muutuja kohta 1 täht, mis tüüpi muutuja on
-		// s - string
-		// i - integer
-		// d- double/float
-		$stmt->bind_param("ss", $signupEmail, $password);
-		
-	   if($stmt->execute()) {
-		   
-		   echo "salvestamine õnnestust";
-	   } else {
-		   echo "ERROR ".$stmt->error;
-	   }
+	   
 	
+	}
+	
+	$error = "";
+	//kontrollin, et kasutaja täitis välja ja võib sisse logida 
+	if ( isset($_POST["loginEmail"]) &&
+	     isset($_POST["loginPassword"]) &&
+		 !empty($_POST["loginEmail"]) &&
+		 !empty($_POST["loginPassword"]) 
+	  ) {
+		  
+		//login sisse
+		$error = login($_POST["loginEmail"], $_POST["loginPassword"]);
+		
 	}
 	
 
@@ -115,7 +121,7 @@ $gender = "male";
 			<h1>Logi sisse</h1>
 		
 			<form method="POST">
-			
+			    <p style="color:red;"><?=$error;?></p>
 				<label>E-post</label><br>
 				<input name="loginEmail" type="email">
 				
@@ -164,10 +170,10 @@ $gender = "male";
 				<input type="radio" name="gender" value="other" > Other<br>
 			    <?php } ?>
 				
-		
-			
+		        
 				<input type="submit" value="Loo kasutaja">
 				
+			
 			
 			</form>
 

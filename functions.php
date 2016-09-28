@@ -2,6 +2,10 @@
 
    //functions.php
    
+   //alustan sessiooni, et saaks kasutada
+   //$_SESSION muutujaid
+   session_start();
+   
    //SIGNUP
    
    
@@ -59,6 +63,12 @@
 			 if($hash == $passwordFromDatabase) {
 				 
 				 echo "kasutaja ".$id." logis sisse";
+				 
+				 $_SESSION["userid"] = $id;
+				 $_SESSION["email"] = $emailFromDatabase;
+				 
+				 //suunaks uuele lehele
+				 header("Location: data.php");
 				 
 		} else {
 			$error = "parool vale";

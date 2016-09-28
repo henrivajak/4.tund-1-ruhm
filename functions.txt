@@ -1,0 +1,22 @@
+<?php
+
+   //functions.php
+   
+   function sum ($x, $y) {
+   
+       return $x + $y;
+	   
+	}
+	 
+	echo sum(40,60);
+	echo "<br>";
+	$answer = sum(10,15);
+	echo $answer;
+	echo sum(4,32);
+	echo "<br>";
+
+   
+   
+   
+   
+?>
