@@ -7,7 +7,7 @@
 	require("functions.php");
 	
 	//kas kasutaja on sisse logitud
-	if (isset ($_SESSIPN["userid"])) {
+	if (isset ($_SESSION["userid"])) {
 		
 		header("Location: data.php");
 		
